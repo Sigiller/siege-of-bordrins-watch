@@ -1,0 +1,40 @@
+{
+  "id": "siege-of-bordrins-watch",
+  "title": "Siege of Bordrin's Watch",
+  "version": "0.0.1",
+  "compatibility": {
+    "minimum": "12",
+    "verified": "12"
+  },
+  "relationships": {
+    "systems": [
+      {
+        "id": "dnd4e",
+        "type": "system",
+        "compatibility": {}
+      }
+    ]
+  },
+  "authors": [
+    {
+      "name": "Sigiller",
+      "email": "sigiller@gmail.com",
+      "url": "https://github.com/Sigiller",
+      "discord": "sigiller",
+      "flags": {}
+    }
+  ],
+  "packs": [
+    {
+      "name": "siege-of-bodrins-watch-compendium-pack",
+      "label": "Siege of Bodrin's Watch Compendium Pack",
+      "path": "packs/siege-of-bodrins-watch-compendium-pack",
+      "type": "Adventure",
+      "ownership": {
+        "PLAYER": "OBSERVER",
+        "ASSISTANT": "OWNER"
+      },
+      "system": "dnd4e"
+    }
+  ]
+}
