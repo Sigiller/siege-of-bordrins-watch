@@ -1,8 +1,10 @@
 name: Tag latest and upload module assets
 
 on:
-  release:
-    types: [published]
+  push:
+    branches:
+      - main
+      - master
 
 jobs:
   update-latest-and-upload:
@@ -20,7 +22,16 @@ jobs:
 
       - name: Create or update 'latest' tag
         run: |
-          git tag -f latest ${{ github.event.release.tag_name }}
+          # Create a tag name based on commit SHA and timestamp
+          TIMESTAMP=$(date +%Y%m%d-%H%M%S)
+          COMMIT_SHA_SHORT=$(git rev-parse --short HEAD)
+          TAG_NAME="latest-${TIMESTAMP}-${COMMIT_SHA_SHORT}"
+          
+          # Create the new tag
+          git tag -f latest ${{ github.sha }}
+          git tag -f $TAG_NAME ${{ github.sha }}
+          
+          # Push tags to remote
           git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
           git push origin --force --tags
 
@@ -29,11 +40,19 @@ jobs:
           mkdir temp-release
           git archive --format=zip --output=temp-release/module.zip HEAD
 
-      - name: Upload module.json and module.zip to release
+      - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
+          tag_name: latest-${{ github.sha }}
+          name: Latest Build - ${{ github.sha }}
+          body: |
+            Automatic build from commit ${{ github.sha }}
+            Commit message: ${{ github.event.head_commit.message }}
+            Built on: ${{ github.event.head_commit.timestamp }}
           files: |
             module.json
             temp-release/module.zip
+          draft: false
+          prerelease: false
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

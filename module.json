@@ -15,6 +15,36 @@
         "type": "system",
         "compatibility": {}
       }
+    ],
+    "requires": [
+      {
+        "id": "levels",
+        "type": "module",
+        "compatibility": {
+          "verified": "5.5.4"
+        }
+      },
+      {
+        "id": "betterroofs",
+        "type": "module",
+        "compatibility": {
+          "verified": "2.0.6"
+        }
+      },
+      {
+        "id": "monks-active-tiles",
+        "type": "module",
+        "compatibility": {
+          "verified": "12.02"
+        }
+      },
+      {
+        "id": "monks-wall-enhancement",
+        "type": "module",
+        "compatibility": {
+          "verified": "12.02"
+        }
+      }
     ]
   },
   "authors": [
